@@ -1,10 +1,13 @@
 import React from 'react'
 import data from '../data'
-import RenderQuestionByCondition from './RenderQuestionByCondition';
+import { Question } from './Question';
 import './TestBoard.css'
 
 export class TestBoard extends React.Component {
-    state = { data, currentQuestion: 1, answersArr: [], testResult: -1 }
+    constructor(props) {
+        super(props);
+        this.state = this.getInitialState();
+    }
 
     increaseCurrentQuestion = (answer) => {
         const answersArray = this.state.answersArr;
@@ -26,14 +29,18 @@ export class TestBoard extends React.Component {
     }
 
     restartTest = () => {
-        console.log('restart');
+        this.setState(this.getInitialState());
+    }
+
+    getInitialState = () => {
+        return { data, currentQuestion: 1, answersArr: [], testResult: -1 };
     }
 
     render() {
         return <>
             {this.state.data.map((question, index) => {
                 if (index + 1 === this.state.currentQuestion) {
-                    return (<RenderQuestionByCondition key={index} question={question} currQ={index} setNextQ={this.increaseCurrentQuestion} />)
+                    return <Question key= {index} question={question} setNextQ={this.increaseCurrentQuestion} />
                 }
             })}
             {(this.state.testResult > -1) ?
