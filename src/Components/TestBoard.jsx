@@ -38,16 +38,18 @@ export class TestBoard extends React.Component {
 
     render() {
         return <>
-            {this.state.data.map((question, index) => {
-                if (index + 1 === this.state.currentQuestion) {
-                    return <Question key= {index} question={question} setNextQ={this.increaseCurrentQuestion} />
-                }
-            })}
-            {(this.state.testResult > -1) ?
-                <div><h2> Your Test Result Is : {this.state.testResult}</h2>
-                    <input type="button" onClick={this.restartTest} value="Restart" />
-                </div>
-                : null}
+            <div className="main-board">
+                {this.state.data.map((question, index) => {
+                    if (index + 1 === this.state.currentQuestion) {
+                        return <Question key={index} question={question} setNextQ={this.increaseCurrentQuestion} />
+                    }
+                })}
+                {(this.state.testResult > -1) ?
+                    <div><h2> Your Test Result Is : {this.state.testResult}</h2>
+                        <input type="button" onClick={this.restartTest} value="Restart" />
+                    </div>
+                    : null}
+            </div>
         </>
     }
 }
